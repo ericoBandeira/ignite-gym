@@ -1,23 +1,32 @@
+/* eslint-disable camelcase */
 import { StatusBar } from "react-native";
-import { Home } from "./src/screens/Home";
 import {
-  Roboto_400Regular,
-  Roboto_700Bold,
   useFonts,
+  Roboto_700Bold,
+  Roboto_400Regular,
 } from "@expo-google-fonts/roboto";
+import { Center, GluestackUIProvider, Text } from "@gluestack-ui/themed";
+import { config } from "./config/gluestack-ui.config";
 import { Loading } from "@components/Loading";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_700Bold, Roboto_400Regular });
 
   return (
-    <>
+    <GluestackUIProvider config={config}>
       <StatusBar
         barStyle="light-content"
-        translucent
         backgroundColor="transparent"
+        translucent
       />
-      {fontsLoaded ? <Home /> : <Loading />}
-    </>
+
+      {fontsLoaded ? (
+        <Center flex={1} bg="$gray700">
+          <Text>Home</Text>
+        </Center>
+      ) : (
+        <Loading />
+      )}
+    </GluestackUIProvider>
   );
 }
